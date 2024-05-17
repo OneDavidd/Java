@@ -143,37 +143,15 @@ public class Cafeteria {
         }
     }
 
-    //////// ADICIONAR USUARIO ////////
-    public void AdicionarUsuario(Pessoa novoUsuario) {
-        int novoCodigo = codigoPessoa + 1;
-
-        if (BuscarUsuarios(novoUsuario.getIdPessoa()) == null) {
-            novoUsuario.setIdPessoa(novoCodigo);
-            codigoPessoa = novoCodigo;
-            pessoas.add(novoUsuario);
-            System.out.println(novoUsuario.getNome() + ", com código: " + novoUsuario.getIdPessoa()
-                    + " cadastrado com sucesso!");
+    //////// REMOVER FUNCIONARIO ////////
+    public void RemoverFuncionario(Pessoa removerFuncionario) {
+        if (BuscarFuncionarios(removerFuncionario.getIdPessoa()) != null) {
+            pessoas.remove(removerFuncionario);
+            System.out.println(
+                    removerFuncionario.getNome() + ", com código: " + removerFuncionario.getIdPessoa()
+                            + " removido com sucesso!");
         } else {
-            System.out.println("Usuario já cadastrado com esse id! (" + novoUsuario.getIdPessoa() + ")");
-        }
-    }
-
-    //////// LISTAR PESSOAS ////////
-    // public List<Pessoa> ListarPessoas() throws Exception {
-    // if (pessoas.size() == 0) {
-    // throw new Exception("Não há pessoas cadastradas!");
-    // } else {
-    // return pessoas;
-    // }
-    // }
-
-    ////// LISTAR INSUMO ////////
-
-    public void ListarPessoas() {
-        if (pessoas.size() == 0) {
-            System.out.println("Não há pessoas cadastrados!");
-        } else {
-            System.out.println(pessoas);
+            System.out.println("Funcionário não encontrado!");
         }
     }
 
@@ -189,33 +167,6 @@ public class Cafeteria {
                 }
             }
             return funcionarios;
-        }
-    }
-
-    //////// LISTAR USUARIOS ////////
-    public List<Usuario> ListarUsuarios() throws Exception {
-        if (pessoas.size() == 0) {
-            throw new Exception("Não há usuarios cadastrados!");
-        } else {
-            List<Usuario> usuarios = new ArrayList<>();
-            for (Pessoa pessoa : pessoas) {
-                if (pessoa instanceof Usuario) {
-                    usuarios.add((Usuario) pessoa);
-                }
-            }
-            return usuarios;
-        }
-    }
-
-    //////// REMOVER FUNCIONARIO ////////
-    public void RemoverFuncionario(Funcionario removerFuncionario) {
-        if (BuscarProduto(removerFuncionario.getIdPessoa()) != null) {
-            pessoas.remove(removerFuncionario);
-            System.out.println(
-                    removerFuncionario.getNome() + ", com código: " + removerFuncionario.getIdPessoa()
-                            + " removido com sucesso!");
-        } else {
-            System.out.println("Funcionário não encontrado!");
         }
     }
 
@@ -237,6 +188,48 @@ public class Cafeteria {
         return null;
     }
 
+    //////// ADICIONAR USUARIO ////////
+    public void AdicionarUsuario(Pessoa novoUsuario) {
+        int novoCodigo = codigoPessoa + 1;
+
+        if (BuscarUsuarios(novoUsuario.getIdPessoa()) == null) {
+            novoUsuario.setIdPessoa(novoCodigo);
+            codigoPessoa = novoCodigo;
+            pessoas.add(novoUsuario);
+            System.out.println(novoUsuario.getNome() + ", com código: " + novoUsuario.getIdPessoa()
+                    + " cadastrado com sucesso!");
+        } else {
+            System.out.println("Usuario já cadastrado com esse id! (" + novoUsuario.getIdPessoa() + ")");
+        }
+    }
+
+    //////// REMOVER USUARIO ////////
+    public void RemoverUsuario(Pessoa removerUsuario) {
+        if (BuscarUsuarios(removerUsuario.getIdPessoa()) != null) {
+            pessoas.remove(removerUsuario);
+            System.out.println(
+                removerUsuario.getNome() + ", com código: " + removerUsuario.getIdPessoa()
+                            + " removido com sucesso!");
+        } else {
+            System.out.println("Usuário não encontrado!");
+        }
+    }
+
+    //////// LISTAR USUARIOS ////////
+    public List<Usuario> ListarUsuarios() throws Exception {
+        if (pessoas.size() == 0) {
+            throw new Exception("Não há usuarios cadastrados!");
+        } else {
+            List<Usuario> usuarios = new ArrayList<>();
+            for (Pessoa pessoa : pessoas) {
+                if (pessoa instanceof Usuario) {
+                    usuarios.add((Usuario) pessoa);
+                }
+            }
+            return usuarios;
+        }
+    }
+
     //////// BUSCAR USUARIOS ////////
     public Usuario BuscarUsuarios(int idUsuario) {
         List<Usuario> usuarios = new ArrayList<>();
@@ -253,6 +246,23 @@ public class Cafeteria {
             }
         }
         return null;
+    }
+
+    ////// LISTAR PESSOAS (USUÁRIOS E FUNCIONÁRIOS) ////////
+
+    // public void ListarPessoas() {
+    //     if (pessoas.size() == 0) {
+    //         System.out.println("Não há pessoas cadastrados!");
+    //     } else {
+    //         System.out.println(pessoas);
+    //     }
+    // }
+
+    public List<Pessoa> ListarPessoas() throws Exception {
+        if (pessoas.isEmpty()) {
+            throw new Exception ("Não há pessoas cadastrados!");
+        }
+        return pessoas;
     }
 
     @Override
